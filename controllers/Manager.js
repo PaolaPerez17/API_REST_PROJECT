@@ -1,18 +1,32 @@
 const { matchedData } = require("express-validator");
-const Manager = require("../models/Manager");
+const { models } = require("../database/Conexion_db");
 
 const getManager = (req, res) => {};
-const getManagers = async(req, res) => {
+const getManagers = async (req, res) => {
   try {
-    const body = matchedData(req)
-    const data = await Manager.create(body)
-    res.send({data})
+    const body = matchedData(req);
+    const data = await models.Manager.create(body);
+    res.send({ data });
   } catch (error) {
-    console.log('message: message',error)
+    console.log("message: message", error);
   }
 };
-const createManager = (req, res) => {
-  
+const createManager = async (req, res) => {
+  try {
+    const body = matchedData(req);
+    const { id, name, lastname, email, brithdate, password } = body;
+    const data = await models.Manager.create(body, {
+      id,
+      name,
+      lastname,
+      email,
+      brithdate,
+      password,
+    });
+    res.send({ data });
+  } catch (error) {
+    console.log("message: no se puede reguistar user", error);
+  }
 };
 const updateManager = (req, res) => {};
 const delateManager = (req, res) => {};

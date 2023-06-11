@@ -1,7 +1,7 @@
 const { Model, DataTypes, Sequelize } = require("sequelize");
 const { PathModel } = require("./Path");
 
-const manager_table = "manager";
+const manager_table = "Manager";
 const Manager = {
   id: {
     type: DataTypes.INTEGER,

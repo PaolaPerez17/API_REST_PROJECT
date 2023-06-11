@@ -1,18 +1,26 @@
-const { DataTypes } = require("sequelize");
-const sequelize = require("../database/Conexion_db");
+const { DataTypes, Model } = require("sequelize");
 
-const Squad = sequelize.define(
-  "squad",
-  {
-    id: {
-      type: DataTypes.INTEGER,
-      primaryKey: true,
-      autoIncrement: true,
-    },
+
+const squad_table = "Squad"
+
+const Squad = {
+  id: {
+    type: DataTypes.INTEGER,
+    primaryKey: true,
+    autoIncrement: true,
   },
-  {
-    timestamps: false,
-  }
-);
+};
 
-module.exports = Squad;
+class SquadModel extends Model {
+  static associate() {}
+  static config(sequelize){
+    return {
+      sequelize,
+      tableName: squad_table,
+      modelName: "Squad",
+      timestamps: false
+    }
+  }
+}
+
+module.exports = {squad_table, Squad, SquadModel};

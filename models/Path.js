@@ -1,6 +1,6 @@
 const { DataTypes, Model, Sequelize } = require("sequelize");
 const { IssueModel } = require("./Issue");
-const Path_table = "Path";
+const  Path_table  = "Path";
 
 const Path = {
   id: {
