@@ -1,15 +1,16 @@
-const { IssueModel, Issue } = require("./Issue");
-const { ManagerModel, Manager } = require("./Manager");
-const { PathModel, Path } = require("./Path");
-const { SquadModel, Squad } = require("./Squad");
-const { StudenModel, Studen } = require("./Studen");
+const { Manager, ManagerShema } = require("./Manager");
+const { Path, PathShema } = require("./Path");
+const { Issue, IssueShema } = require("./Issue");
+const { Studen, StudenShema } = require("./Studen");
 
 function setupModels(sequelize) {
-  IssueModel.init(Issue, IssueModel.config(sequelize));
-  ManagerModel.init(Manager, ManagerModel.config(sequelize));
-  PathModel.init(Path, PathModel.config(sequelize));
-  SquadModel.init(Squad, SquadModel.config(sequelize));
-  StudenModel.init(Studen, StudenModel.config(sequelize));
+  Manager.init(ManagerShema, Manager.config(sequelize));
+  Path.init(PathShema, Path.config(sequelize));
+  Issue.init(IssueShema, Issue.config(sequelize));
+  Studen.init(StudenShema, Studen.config(sequelize));
+
+  Manager.associate(sequelize.models);
+  Path.associate(sequelize.models);
 }
 
 module.exports = setupModels;

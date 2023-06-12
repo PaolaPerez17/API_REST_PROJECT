@@ -2,13 +2,10 @@ const { Model, DataTypes, Sequelize } = require("sequelize");
 const { PathModel } = require("./Path");
 
 const manager_table = "Manager";
-const Manager = {
+const ManagerShema = {
   id: {
-    type: DataTypes.INTEGER,
     primaryKey: true,
-    validate: {
-      len: [0, 10],
-    },
+    type: DataTypes.INTEGER,
   },
   name: {
     type: DataTypes.STRING,
@@ -27,19 +24,11 @@ const Manager = {
   },
 };
 
-class ManagerModel extends Model {
+class Manager extends Model {
   static associate(models) {
-    ManagerModel.hasMany(models.PathModel, {
-      foreignKey: "id_mang_path",
-      sourceKey: "id",
-    });
+    Manager.hasMany(models.Path, { foreignKey: "id_mangpath" });
   }
-  static associate(models) {
-    PathModel.belongsTo(models.ManagerModel, {
-      foreignKey: "id_mang_path",
-      targetKey: "id",
-    });
-  }
+
   static config(sequelize) {
     return {
       sequelize,
@@ -50,4 +39,4 @@ class ManagerModel extends Model {
   }
 }
 
-module.exports = { manager_table, ManagerModel, Manager };
+module.exports = { manager_table, Manager, ManagerShema };

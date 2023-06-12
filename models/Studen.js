@@ -1,11 +1,11 @@
 const { DataTypes, Model } = require("sequelize");
 
-const { PathModel } = require("./Path");
-const { SquadModel } = require("./Squad");
+// const { PathModel } = require("./Path");
+// const { SquadModel } = require("./Squad");
 
-const studen_table = "Studen"
+const studen_table = "Studen";
 
-const Studen = {
+const StudenShema = {
   id: {
     type: DataTypes.INTEGER,
     primaryKey: true,
@@ -30,21 +30,20 @@ const Studen = {
   },
 };
 
-class StudenModel extends Model {
+class Studen extends Model {
   static associate(models) {
-    StudenModel.belongsToMany(models.PathModel, { through: SquadModel });
+    Studen.belongsToMany(models.Path, { through: "Squad" });
+    // Path.belongsToMany(models.Studen, { through: "Squad"});
   }
-  static associate(models) {
-    PathModel.belongsToMany(models.StudenModel, { through: SquadModel });
-  }
+
   static config(sequelize) {
     return {
       sequelize,
       tableName: studen_table,
       modelName: "Studen",
-      timestamps: false
-    }
+      timestamps: false,
+    };
   }
 }
 
-module.exports = {Studen, studen_table, StudenModel};
+module.exports = { Studen, studen_table, StudenShema };

@@ -1,7 +1,8 @@
 const { Model, DataTypes, Sequelize } = require("sequelize");
-const issue_table = "issue";
+// const {PathModel} = require("./Path")
+const issue_table = "Issue";
 
-const Issue = {
+const IssueShema = {
   id: {
     type: DataTypes.INTEGER,
     primaryKey: true,
@@ -21,8 +22,10 @@ const Issue = {
   },
 };
 
-class IssueModel extends Model {
-  static associate() {}
+class Issue extends Model {
+  static associate(models) {
+    Issue.belongsTo(models.Path, { foreignKey: "id_pathiss" });
+  }
   static config(sequelize) {
     return {
       sequelize,
@@ -32,4 +35,4 @@ class IssueModel extends Model {
     };
   }
 }
-module.exports = { IssueModel, issue_table, Issue };
+module.exports = { IssueShema, issue_table, Issue };

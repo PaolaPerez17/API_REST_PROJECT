@@ -1,8 +1,12 @@
-const { DataTypes, Model, Sequelize } = require("sequelize");
-const { IssueModel } = require("./Issue");
-const  Path_table  = "Path";
+const { Model, DataTypes, Sequelize } = require("sequelize");
+// const { SquadShema } = require("./Squad");
+// const { IssueModel } = require("./Issue");
+// const { Manager } = require("./Manager");
+// const { SquadModel } = require("./Squad");
+// const { StudenModel } = require("./Studen");
+const Path_table = "Path";
 
-const Path = {
+const PathShema = {
   id: {
     type: DataTypes.INTEGER,
     primaryKey: true,
@@ -21,19 +25,12 @@ const Path = {
     type: DataTypes.DATE,
   },
 };
-class PathModel extends Model {
+class Path extends Model {
   static associate(models) {
-    PathModel.hasMany(models.IssueModel, {
-      foreignKey: "id_path_issu",
-      sourceKey: "id",
-    });
-  }
-
-  static associate(models) {
-    IssueModel.belongsTo(models.PathModel, {
-      foreignKey: "id_path_issu",
-      targetKey: "id",
-    });
+    Path.belongsTo(models.Manager, { foreignKey: "id_mangpath" });
+    Path.hasMany(models.Issue, { foreignKey: "id_pathiss" });
+    Path.belongsToMany(models.Studen, { through: "Squad" });
+    // Studen.belongsToMany(models.Path, { through: "Squad" });
   }
 
   static config(sequelize) {
@@ -46,4 +43,4 @@ class PathModel extends Model {
   }
 }
 
-module.exports = { Path, Path_table, PathModel };
+module.exports = { Path_table, Path, PathShema };

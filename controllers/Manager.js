@@ -15,14 +15,7 @@ const createManager = async (req, res) => {
   try {
     const body = matchedData(req);
     const { id, name, lastname, email, brithdate, password } = body;
-    const data = await models.Manager.create(body, {
-      id,
-      name,
-      lastname,
-      email,
-      brithdate,
-      password,
-    });
+    const data = await models.Manager.create(body);
     res.send({ data });
   } catch (error) {
     console.log("message: no se puede reguistar user", error);
