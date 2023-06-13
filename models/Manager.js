@@ -1,27 +1,28 @@
 const { Model, DataTypes, Sequelize } = require("sequelize");
-const { PathModel } = require("./Path");
+
 
 const manager_table = "Manager";
 const ManagerShema = {
   id: {
     primaryKey: true,
-    type: DataTypes.INTEGER,
+    type: DataTypes.DOUBLE,
+    allowNull: false,
   },
   name: {
     type: DataTypes.STRING,
   },
-  Lastname: {
+  lastname: {
     type: DataTypes.STRING,
   },
-  Email: {
+  email: {
     type: DataTypes.STRING,
   },
-  Brithdate: {
+  brithdate: {
     type: DataTypes.DATE,
   },
-  Password: {
+  password: {
     type: DataTypes.STRING,
-  },
+  }
 };
 
 class Manager extends Model {

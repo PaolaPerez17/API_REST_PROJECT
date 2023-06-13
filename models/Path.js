@@ -15,13 +15,13 @@ const PathShema = {
   name: {
     type: DataTypes.STRING,
   },
-  Progress: {
+  progress: {
     type: DataTypes.INTEGER,
   },
-  Start_date: {
+  start_date: {
     type: DataTypes.DATE,
   },
-  Finish_date: {
+  finish_date: {
     type: DataTypes.DATE,
   },
 };
@@ -29,8 +29,8 @@ class Path extends Model {
   static associate(models) {
     Path.belongsTo(models.Manager, { foreignKey: "id_mangpath" });
     Path.hasMany(models.Issue, { foreignKey: "id_pathiss" });
-    Path.belongsToMany(models.Studen, { through: "Squad" });
-    // Studen.belongsToMany(models.Path, { through: "Squad" });
+    Path.belongsTo(models.Studen, { foreignKey: 'squad_id' });
+    
   }
 
   static config(sequelize) {

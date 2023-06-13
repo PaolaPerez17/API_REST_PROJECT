@@ -1,32 +1,82 @@
-const { matchedData } = require("express-validator");
 const { models } = require("../database/Conexion_db");
 
-const getManager = (req, res) => {};
-const getManagers = async (req, res) => {
+const userM = models.Manager;
+
+const createManager = async (data) => {
   try {
-    const body = matchedData(req);
-    const data = await models.Manager.create(body);
-    res.send({ data });
+    const resp = await userM.create(data);
+    return resp;
   } catch (error) {
-    console.log("message: message", error);
+    console.log(error, "message: no se puede reguistar user");
+    return {
+      message: "no se insertaron correctamente los datos",
+      err: error.message,
+      code: 400,
+    };
   }
 };
-const createManager = async (req, res) => {
-  try {
-    const body = matchedData(req);
-    const { id, name, lastname, email, brithdate, password } = body;
-    const data = await models.Manager.create(body);
-    res.send({ data });
-  } catch (error) {
-    console.log("message: no se puede reguistar user", error);
+
+const updateManager = async (data) => {
+  const { id, name, lastname, brithdate, password } = data;
+  const resp = await userM.findOne({ where: { id } });
+  if (!resp) {
+    return {
+      err: "Manager not found",
+      managerid: id,
+      code: 404,
+    };
   }
+  let body = {
+    name,
+    lastname,
+    brithdate,
+    password,
+  };
+  data = await userM.update(body, { where: { id } });
+  if (data[0] === 1) {
+    data = {
+      user: body,
+      message: "se actualizo el registro ",
+      code: 200,
+    };
+  }
+  return data;
 };
-const updateManager = (req, res) => {};
-const delateManager = (req, res) => {};
+
+const getManager = async ({ id }) => {
+  const resp = await userM.findOne({ where: { id } });
+  if (!resp) {
+    return {
+      err: " Manager no encontrado",
+      managerid: id,
+      code: 400,
+    };
+  }
+  return resp;
+};
+
+const delateManager = async (data) => {
+  const { id } = data;
+  const user = await userM.findOne({ where: { id } });
+  if (!user) {
+    return {
+      err: "Manager no existe",
+      managerid: id,
+      code: 404,
+    };
+  }
+  let resp = await userM.destroy({ where: { id } });
+  if (resp === 1)
+    resp = {
+      user: id,
+      message: " se borro",
+      code: 200,
+    };
+  return resp;
+};
 
 module.exports = {
   getManager,
-  getManagers,
   createManager,
   updateManager,
   delateManager,

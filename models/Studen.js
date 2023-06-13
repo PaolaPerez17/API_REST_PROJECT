@@ -7,33 +7,29 @@ const studen_table = "Studen";
 
 const StudenShema = {
   id: {
-    type: DataTypes.INTEGER,
+    type: DataTypes.DOUBLE,
     primaryKey: true,
-    validate: {
-      len: [0, 10],
-    },
   },
   name: {
     type: DataTypes.STRING,
   },
-  Lastname: {
+  lastname: {
     type: DataTypes.STRING,
   },
-  Email: {
+  email: {
     type: DataTypes.STRING,
   },
-  Brithdate: {
+  brithdate: {
     type: DataTypes.DATE,
   },
-  Password: {
+  password: {
     type: DataTypes.STRING,
   },
 };
 
 class Studen extends Model {
   static associate(models) {
-    Studen.belongsToMany(models.Path, { through: "Squad" });
-    // Path.belongsToMany(models.Studen, { through: "Squad"});
+    Studen.hasMany(models.Path, { foreignKey: 'squad_id' });
   }
 
   static config(sequelize) {
