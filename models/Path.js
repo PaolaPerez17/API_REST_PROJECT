@@ -1,9 +1,5 @@
 const { Model, DataTypes, Sequelize } = require("sequelize");
-// const { SquadShema } = require("./Squad");
-// const { IssueModel } = require("./Issue");
-// const { Manager } = require("./Manager");
-// const { SquadModel } = require("./Squad");
-// const { StudenModel } = require("./Studen");
+
 const Path_table = "Path";
 
 const PathShema = {
@@ -11,6 +7,7 @@ const PathShema = {
     type: DataTypes.INTEGER,
     primaryKey: true,
     autoIncrement: true,
+    allowNull: false,
   },
   name: {
     type: DataTypes.STRING,
@@ -29,8 +26,7 @@ class Path extends Model {
   static associate(models) {
     Path.belongsTo(models.Manager, { foreignKey: "id_mangpath" });
     Path.hasMany(models.Issue, { foreignKey: "id_pathiss" });
-    Path.belongsTo(models.Studen, { foreignKey: 'squad_id' });
-    
+    Path.belongsTo(models.Studen, { foreignKey: "squad_id" });
   }
 
   static config(sequelize) {
