@@ -11,7 +11,7 @@ app.use("/api/v1", require("./routers"));
 
 app.listen(port, () => {
   try {
-    console.log(` http://localhost:${port} established connection `);
+    console.log(` http://localhost:${port} connection established `);
   } catch (error) {
     console.log("message: message", error);
   }
