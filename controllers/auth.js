@@ -53,7 +53,7 @@ const register = async (req) => {
 
   dataUser.set("password", undefined, { stric: false });
   data = {
-    token: await tokenSign(dataUser),
+    token: await tokenSign(req),
     userMa: dataUser,
   };
   return { data };

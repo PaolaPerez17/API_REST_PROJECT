@@ -1,5 +1,6 @@
 const express = require("express");
 const router = express.Router();
+const authMiddleware  = require("../middleware/sesion");
 const {
   getIssue,
   createIssue,
@@ -7,7 +8,7 @@ const {
   deleteIssue,
 } = require("../controllers/Issue");
 
-router.post("/", async (req, res) => {
+router.post("/", authMiddleware, async (req, res) => {
   let data = await createIssue(req.body);
   if (data && data.err) {
     res.status(data.code || 500);
@@ -18,7 +19,7 @@ router.post("/", async (req, res) => {
   res.json(data);
 });
 
-router.get("/:id", async (req, res) => {
+router.get("/:id",authMiddleware, async (req, res) => {
   let params = Object.assign({}, req.body, req.query, req.params);
   if (req.params.id) {
     params.id = req.params.id;
@@ -33,7 +34,7 @@ router.get("/:id", async (req, res) => {
   }
   res.json(data);
 });
-router.put("/:id", async (req, res) => {
+router.put("/:id",authMiddleware, async (req, res) => {
   let params = Object.assign({}, req.body, req.query, req.params);
   if (req.params.id) {
     params.id = req.params.id;
@@ -48,7 +49,7 @@ router.put("/:id", async (req, res) => {
   res.json(data);
 });
 
-router.delete("/:id", async (req, res) => {
+router.delete("/:id",authMiddleware, async (req, res) => {
   let params = Object.assign({}, req.body, req.query, req.params);
   if (req.params.id) {
     params.id = req.params.id;

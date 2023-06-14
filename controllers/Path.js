@@ -49,7 +49,7 @@ const getPath = async ({ id }) => {
   const resp = await userM.findOne({ where: { id } });
   if (!resp) {
     return {
-      err: " Manager no encontrado",
+      err: " Path no encontrado",
       pathid: id,
       code: 400,
     };
