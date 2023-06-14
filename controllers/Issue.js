@@ -6,14 +6,14 @@ const createIssue = async (data) => {
   try {
     let resp = await userM.create(data);
     resp = {
-      message: "se registra issue",
+      message: " issue is recorded",
       data,
     };
     return resp;
   } catch (error) {
     return {
       path: data.error,
-      message: "los parametros no son correctos",
+      message: "parameters are not correct",
       code: 400,
     };
   }
@@ -23,7 +23,7 @@ const getIssue = async ({ id }) => {
   const resp = await userM.findOne({ where: { id } });
   if (!resp) {
     return {
-      err: " issue no encontrado",
+      err: " issue not found",
       issueid: id,
       code: 400,
     };
@@ -51,7 +51,7 @@ const updateIssue = async (data) => {
   if (data[0] === 1) {
     data = {
       issue: body,
-      message: "se actualizo el registro ",
+      message: "item has been updated ",
     };
   }
   return data;
@@ -62,7 +62,7 @@ const deleteIssue = async (data) => {
   const user = await userM.findOne({ where: { id } });
   if (!user) {
     return {
-      err: "path no existe",
+      err: "item does not exist",
       pathid: id,
       code: 404,
     };
@@ -71,7 +71,7 @@ const deleteIssue = async (data) => {
   if (resp === 1)
     resp = {
       user: id,
-      message: " se borro",
+      message: " item was deleted",
     };
   return resp;
 };

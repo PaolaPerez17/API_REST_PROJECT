@@ -7,9 +7,9 @@ const createManager = async (data) => {
     const resp = await userM.create(data);
     return resp;
   } catch (error) {
-    console.log(error, "message: no se puede reguistar user");
+    console.log(error, "message: unable to register user");
     return {
-      message: "no se insertaron correctamente los datos",
+      message: "data were not inserted correctly",
       err: error.message,
       code: 400,
     };
@@ -21,7 +21,7 @@ const updateManager = async (data) => {
   const resp = await userM.findOne({ where: { id } });
   if (!resp) {
     return {
-      err: "Manager not found",
+      err: "user not found ",
       managerid: id,
       code: 404,
     };
@@ -36,7 +36,7 @@ const updateManager = async (data) => {
   if (data[0] === 1) {
     data = {
       user: body,
-      message: "se actualizo el registro ",
+      message: "user updated ",
       code: 200,
     };
   }
@@ -47,7 +47,7 @@ const getManager = async ({ id }) => {
   const resp = await userM.findOne({ where: { id } });
   if (!resp) {
     return {
-      err: " Manager no encontrado",
+      err: " user not found",
       managerid: id,
       code: 400,
     };
@@ -60,7 +60,7 @@ const delateManager = async (data) => {
   const user = await userM.findOne({ where: { id } });
   if (!user) {
     return {
-      err: "Manager no existe",
+      err: "user does not exist",
       managerid: id,
       code: 404,
     };
@@ -69,7 +69,7 @@ const delateManager = async (data) => {
   if (resp === 1)
     resp = {
       user: id,
-      message: " se borro",
+      message: " user deleted ",
       code: 200,
     };
   return resp;

@@ -7,14 +7,14 @@ const createPath = async (data) => {
   try {
     let resp = await userM.create(data);
     resp = {
-      message: "se registra path",
+      message: "was successfully registered",
       data,
     };
     return resp;
   } catch (error) {
     return {
       path: data.error,
-      message: "los parametros no son correctos",
+      message: "parameters are not correct",
       code: 400,
     };
   }
@@ -40,7 +40,7 @@ const updatePath = async (data) => {
   if (data[0] === 1) {
     data = {
       path: body,
-      message: "se actualizo el registro ",
+      message: "item was updated ",
     };
   }
   return data;
@@ -49,7 +49,7 @@ const getPath = async ({ id }) => {
   const resp = await userM.findOne({ where: { id } });
   if (!resp) {
     return {
-      err: " Path no encontrado",
+      err: " item not found  ",
       pathid: id,
       code: 400,
     };
@@ -61,7 +61,7 @@ const delatePath = async (data) => {
   const user = await userM.findOne({ where: { id } });
   if (!user) {
     return {
-      err: "path no existe",
+      err: "item does not exist",
       pathid: id,
       code: 404,
     };
@@ -70,7 +70,7 @@ const delatePath = async (data) => {
   if (resp === 1)
     resp = {
       user: id,
-      message: " se borro",
+      message: " iten was successfully removed ",
     };
   return resp;
 };

@@ -8,14 +8,14 @@ const login = async (req) => {
     where: { email: req.email },
   });
   if (!userMa) {
-    data = { err: "Email invalid or ID", code: 401 };
+    data = { err: "Invalid email or ID", code: 401 };
     return data;
   }
 
   const hashPassword = userMa.get("password");
   const check = await compare(req.password, hashPassword);
   if (!check) {
-    data = { err: "password_invalid", code: 401 };
+    data = { err: "Invalid password", code: 401 };
     return data;
   }
   userMa.set("password", undefined, { stric: false });
@@ -32,7 +32,7 @@ const register = async (req) => {
   let userMa = await models.Manager.findOne({ where: { email: req.email } });
 
   if (userMa) {
-    data = { err: "email existe", code: 400 };
+    data = { err: "Email does not exist", code: 400 };
     return data;
   }
   const password = await encrypt(req.password);
@@ -47,7 +47,7 @@ const register = async (req) => {
       break;
     default:
       return {
-        err: "role not exists",
+        err: "Role does not exist",
       };
   }
 
